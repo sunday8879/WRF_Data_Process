@@ -1,0 +1,53 @@
+import glob
+import os
+import xarray as xr
+
+
+path ="/--your_path_to_WRFncfile--/"
+pdir ="/--your_path_to_WRFncfile_savingloc--/"
+
+filelist = glob.glob(os.path.join(path,'wrfout_d01_*'))
+
+for file in filelist:
+    filename = os.path.basename(file)
+#     time = datetime.datetime.strptime(filename.split('d01_')[1],'%Y-%m-%d_%H:%M:%S')
+    ds0 = xr.open_dataset(file)
+
+    variables = [
+        'XLAT',
+        'XLONG',
+        'TOT_EDUST',
+        'PM10',
+        'PM2_5_DRY',
+        'PH',
+        'PHB',
+        'HGT',
+        'EXTCOF55',
+        'GRASET_1',
+        'GRASET_2',
+        'GRASET_3',
+        'GRASET_4',
+        'GRASET_5'
+    ]
+
+
+    ds1 = ds0[variables]
+
+
+    #             # Extract the AOD
+
+
+
+    #         ### geopotential height
+    #         th = (PH+PHB)/9.81
+    #         ### layer thickness
+    #         dth = np.diff(HGT,axis = 0)
+    #         zz = 32
+    #         ### AOD
+    #         ao = dth * EXTCOF55
+    #         aod = np.sum(ao, axis=0)
+    #         aod = aod/1000
+
+    ds1.to_netcdf(pdir+str(filename)+".nc")
+    ds0.close()
+    ds1.close()
