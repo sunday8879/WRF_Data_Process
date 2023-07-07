@@ -30,17 +30,15 @@ for file in filelist:
         'GRASET_5'
     ]
 
-
     ds1 = ds0[variables]
 
 
-    #             # Extract the AOD
 
 
 
-    #         ### geopotential height
+    #         ### geopotential height calculation
     #         th = (PH+PHB)/9.81
-    #         ### layer thickness
+    #         ### layer thickness, zz as layer count
     #         dth = np.diff(HGT,axis = 0)
     #         zz = 32
     #         ### AOD
